@@ -33,17 +33,34 @@ def take_picture():
 def get_picture():
     images_path
 
-def set_image_opacity():
+def set_image_opacity(opacity_level):
     img = Image.open(images_path).convert('RGBA') 
     
-    opacity_level = 25
+    #opacity_level = 25
     img.putalpha(opacity_level) #opacity level 0-255
     
     img.save(output_images_path)
     print(f"Image saved with opacity {opacity_level} to {output_images_path}")
 
+def fading():
+    set_image_opacity(25)
+    time.sleep(0.2)
+    set_image_opacity(50)
+    time.sleep(0.2)
+    set_image_opacity(75)
+    time.sleep(0.2)
+    set_image_opacity(100)
+    time.sleep(0.2)
+    set_image_opacity(125)
+    time.sleep(0.2)
+    set_image_opacity(150)
+    time.sleep(0.2)
+    set_image_opacity(175)
+    time.sleep(0.2)
+    set_image_opacity(255)
+    time.sleep(0.2)
 
 if __name__=="__main__":
     take_picture()
-    set_image_opacity()
+    fading()
 
