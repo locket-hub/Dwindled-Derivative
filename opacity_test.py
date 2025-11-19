@@ -1,11 +1,49 @@
 from PIL import Image
 
-def set_image_opacity(image_path, output_path, opacity_level):
-    img = Image.open(image_path).convert('RGBA') 
-    
-    img.putalpha(opacity_level)
-    
-    img.save(output_path)
-    print(f"Image saved with opacity {opacity_level} to {output_path}")
+import os
+import subprocess
+import time
 
-set_image_opacity('original_image.jpg', 'semi_transparent_image.png', 128)
+#Input Path
+filename = "pic.png"
+sub_folder = "PhotoInput"
+current_directory = os.getcwd()
+images_tosubpath = os.path.join(current_directory,sub_folder)
+images_path = os.path.join(images_tosubpath,filename)
+
+#Output Path
+output_filename = "pic.png"
+output_sub_folder = "PhotoOutput"
+output_current_directory = os.getcwd()
+output_images_tosubpath = os.path.join(output_current_directory,output_sub_folder)
+output_images_path = os.path.join(output_images_tosubpath,output_filename)
+
+def take_picture():
+    command = [
+        "fswebcam",
+        "-d", "/dev/video0",
+        "-r", "1280x720",
+        "-S", "60", #skip first 60 frames
+        # "--no-banner", if we don't want a banner on bottom
+        images_path
+    ]
+    subprocess.call(command)
+    print('Pic Captured')
+
+def get_picture():
+    images_path
+
+def set_image_opacity():
+    img = Image.open(images_path).convert('RGBA') 
+    
+    opacity_level = 25
+    img.putalpha(opacity_level) #opacity level 0-255
+    
+    img.save(output_images_path)
+    print(f"Image saved with opacity {opacity_level} to {output_images_path}")
+
+
+if __name__=="__main__":
+    take_picture()
+    set_image_opacity()
+
