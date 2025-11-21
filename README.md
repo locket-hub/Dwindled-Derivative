@@ -1,2 +1,2 @@
 # ECE103-project-
-Repository for code 
+ECE103 Contemporary Art Project Code 
