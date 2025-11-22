@@ -91,9 +91,9 @@ def fade_to_black(level, index):
     fade_path = os.path.join(output_images_tosubpath, fade_filename)     
     darker.save(fade_path)
 
-     try:
+    try:
         to_preview = Image.open(fade_path)
-        time.sleep(0.5)
+        #time.sleep(0.5)
     except FileNotFoundError:
         print("File Not Found")
 
@@ -101,13 +101,13 @@ def fade_to_black(level, index):
     print(f"Saved brightness level {level} -> {fade_path}")
 
 
-def increment_fade_og():
-    # Smooth fade from full brightness -> black
+def increment_fade():
+    # From full brightness -> black
     fade_steps = [1.0, 0.7, 0.4, 0.2, 0.0] # For five pages
 
     for idx, level in enumerate(fade_steps):
         fade_to_black(level, idx)
-        time.sleep(0.2)
+        wait_for_beam_break()
 
 
 # def on_time():
@@ -120,37 +120,6 @@ def increment_fade_og():
     #show Page turn to 0: 0
     #Bug: If page turns back it too is detected as a turn
     #   
-"""
-class Photo:
-    def __init__(self):
-        self.i = 0
-        self.to_continue = True
-
-    def capture_photos(self):
-        wait_for_beam_break()
-        
-
-        try:
-            while self.to_continue != True:
-                # Wait for sensor event before each photo
-                wait_for_beam_break()
-
-                filename = f"{self.i}pic.jpg"
-
-                subprocess.run(
-                    f"fswebcam -d /dev/video0 -r 1280x720 -S0 {filename}",
-                    shell=True
-                )
-
-                print("Pic Captured:", filename)
-
-                self.i += 1
-                time.sleep(0.2)
-
-        except KeyboardInterrupt:
-            print("lol")
-
-"""
 
 """
 
@@ -164,23 +133,8 @@ try:
     userInput = input("Please click Enter: ")
 
     if userInput == "":
-
-        # 
-        wait_for_beam_break()
-
-        #
         take_picture()
-
-        # 2. Fade it to black (multiple files: fade_0.png ... fade_6.png)
-        fading()
-
-        """
-        # 3. Take the 10-photo series, each triggered by the beam
-        camera = Photo()
-        camera.capture_photos()
-        """
-
-
+        increment_fade()
     else:
         print("You didn't press Enter.")
 
