@@ -35,11 +35,13 @@ Break Beam Sensor Setup
 
 BEAM_PIN = 17
 
+"""
 def break_beam_callback(channel):
     if GPIO.input(BEAM_PIN):
         print("beam unbroken")
     else:
         print("beam broken")
+"""
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BEAM_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -51,11 +53,10 @@ def wait_for_beam_break():
     is broken (input goes LOW), 
     then wait for it to reset.
     """
-    print("Waiting for beam break to take photo...")
     # Wait until beam goes low (broken)
     while GPIO.input(BEAM_PIN):  # HIGH = unbroken
-        time.sleep(0.01)
-    print("Beam broken → taking photo")
+        print("Waiting for beam break to take photo...")
+    print("Beam broken → editing photo")
 
 """
 
