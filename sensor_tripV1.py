@@ -93,6 +93,7 @@ def fade_to_black(level, index):
 
     try:
         to_preview = Image.open(fade_path)
+        to_preview.show()
         #time.sleep(0.5)
     except FileNotFoundError:
         print("File Not Found")
