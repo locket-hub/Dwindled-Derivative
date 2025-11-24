@@ -35,13 +35,13 @@ Break Beam Sensor Setup
 
 BEAM_PIN = 17
 
-"""
+
 def break_beam_callback(channel):
     if GPIO.input(BEAM_PIN):
         print("beam unbroken")
     else:
         print("beam broken")
-"""
+
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BEAM_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
