@@ -5,9 +5,7 @@ import os
 import RPi.GPIO as GPIO
 
 """
-
 Photo Directories
-
 """
 
 # InputPath
@@ -27,9 +25,7 @@ os.makedirs(images_tosubpath, exist_ok=True)
 os.makedirs(output_images_tosubpath, exist_ok=True)
 
 """
-
 Break Beam Sensor Setup
-
 """
 
 BEAM_PIN = 17
@@ -39,9 +35,7 @@ GPIO.setup(BEAM_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def wait_for_beam_break():
     """
-    Block until the beam is broken (FALLING edge),
-    then block until it is unbroken again (RISING edge),
-    so each physical pass only advances one step.
+    Wait for a clean beam break (FALLING) and then beam restore (RISING)
     """
     print("Waiting for beam break to take photo...")
     GPIO.wait_for_edge(BEAM_PIN, GPIO.FALLING)
@@ -52,17 +46,15 @@ def wait_for_beam_break():
     print("Beam unbroken, ready for next step.")
 
 """
-
-Image/Fading Function
-
+Image/Fading Functions
 """
 
 def take_picture():
     command = [
         "fswebcam",
-        "-d", "/dev/video0",  # With no other webcam devices, this is default
+        "-d", "/dev/video0",
         "-r", "1920x1080",
-        "-S", "60",  # 60 Frames Skipped
+        "-S", "60",
         images_path
     ]
     subprocess.call(command)
@@ -70,6 +62,10 @@ def take_picture():
 
 
 def fade_to_black(level, index):
+    """
+    level: brightness (1.0 -> 0.0)
+    index: fade step number
+    """
     img = Image.open(images_path).convert("RGB")
     enhancer = ImageEnhance.Brightness(img)
     darker = enhancer.enhance(level)
@@ -78,35 +74,37 @@ def fade_to_black(level, index):
     fade_path = os.path.join(output_images_tosubpath, fade_filename)
     darker.save(fade_path)
 
-    # If you really want to preview, only do it once or for debugging
-    # to_preview = Image.open(fade_path)
-    # to_preview.show()
+    try:
+        preview = Image.open(fade_path)
+        preview.show()              # <<---- restored so you SEE each fade frame
+        time.sleep(0.3)             # give image viewer time to open
+    except FileNotFoundError:
+        print("Preview image not found.")
 
     print(f"Saved brightness level {level} -> {fade_path}")
 
 
 def increment_fade():
-    # From full brightness -> black
-    fade_steps = [1.0, 0.7, 0.4, 0.2, 0.0]  # For five pages
+    """
+    Wait for sensor -> show next fade frame
+    """
+    fade_steps = [1.0, 0.7, 0.4, 0.2, 0.0]  # Five pages / fades
 
     for idx, level in enumerate(fade_steps):
-        # Wait for a beam break *before* each new frame
         wait_for_beam_break()
         fade_to_black(level, idx)
 
 
 """
-
-User Input
-
+User Input / Main Flow
 """
 
 try:
     userInput = input("Please click Enter: ")
 
     if userInput == "":
-        take_picture()
-        increment_fade()
+        take_picture()      # Take original image for fading
+        increment_fade()    # Fade based on beam sensor events
     else:
         print("You didn't press Enter.")
 
