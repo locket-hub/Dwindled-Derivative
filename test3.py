@@ -58,8 +58,8 @@ def take_picture():
     cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
  
     cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"MJPG"))
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 720)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1280)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1920)
 
     # Capture Time
     # time.sleep(0.5)
