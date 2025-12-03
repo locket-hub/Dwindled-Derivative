@@ -62,8 +62,8 @@ def take_picture():
     for _ in range(5):
         cap.read()
 
-    # Shortened capture time to two seconds
-    time.sleep(2)
+    # Capture time to three seconds
+    time.sleep(3)
 
     ret, frame = cap.read()
     cap.release()
@@ -101,8 +101,8 @@ def increment_fade(img):
     fade_steps = [1.0, 0.7, 0.4, 0.2, 0.0]
     fade_steps = [0.7, 0.4, 0.2, 0.0]
 
-    # cv2.namedWindow("Fade Preview", img) for first preview
-    # cv2.setWindowProperty("Fade Preview", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+    cv2.namedWindow("Fade Preview", img) for first preview
+    cv2.setWindowProperty("Fade Preview", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
 
     for level in fade_steps:
