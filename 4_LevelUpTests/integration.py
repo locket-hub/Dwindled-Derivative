@@ -63,8 +63,8 @@ def take_picture():
 
     # Not inverted for now
     cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"MJPG"))
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1920)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 720)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1280)
 
     print("Warmup")
     time.sleep(2)
@@ -137,7 +137,8 @@ try:
       print("Distance sensor read %.1f cm." % (dist_sensor.distance * 100))
       time.sleep(1)
       userAdvanceInput = input("Stop? Type anything other than enter")
-      continuethis = userAdvanceInput
+      if userAdvanceInput != "":
+          continuethis = False
 
     userInput = input("Enter to start; q to end: ")
 
