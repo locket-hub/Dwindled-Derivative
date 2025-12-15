@@ -131,10 +131,13 @@ ___________________________
 
 try:
     print("Press Ctrl C to exit. \n")
+    continuethis = True
 
-    while True:
+    while continuethis:
       print("Distance sensor read %.1f cm." % (dist_sensor.distance * 100))
       time.sleep(1)
+      userAdvanceInput = input("Stop? Type anything other than enter")
+      continuethis = userAdvanceInput
 
     userInput = input("Enter to start; q to end: ")
 
