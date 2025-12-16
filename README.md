@@ -1,2 +1,2 @@
-# ECE103-project-
-ECE103 Contemporary Art Project Code 
+# Continuation of The Dwindled Book
+Contemporary Art Project Code 
