@@ -63,8 +63,8 @@ def take_picture():
 
     # Not inverted for now
     cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"MJPG"))
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 720)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1280)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1920)
 
     print("Warmup")
     time.sleep(2)
@@ -112,7 +112,6 @@ def increment_fade(img):
     cv2.namedWindow("Fade Preview", cv2.WINDOW_NORMAL)
     cv2.setWindowProperty("Fade Preview", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
-    print("First Display Test")
     fade_to_black_cv(img, 1.0)
     time.sleep(0.5)
 
@@ -130,29 +129,30 @@ ___________________________
 
 
 try:
-    print("Press Ctrl C to exit. \n")
     continuethis = True
 
     while continuethis:
       print("Distance sensor read %.1f cm." % (dist_sensor.distance * 100))
       time.sleep(1)
-      userAdvanceInput = input("Stop? Type anything other than enter")
-      if userAdvanceInput != "":
+      decider = dist_sensor.distance * 100
+      if decider > 50:
           continuethis = False
 
-    userInput = input("Enter to start; q to end: ")
+    userInput = ""
 
     while userInput != "q":
         if userInput == "":
+            print("Taking a picture")
             img = take_picture()
 
             if img is not None:
                 increment_fade(img)
-                userInput = input("Would like to continue? q to end")
+                userInput = input("Press enter to continue or q + enter to end")
+                cv2.destroyAllWindows()
             else:
                 print("No image captured.")
         else:
-            print("You didn't press Enter.")
+            print("Press enter to continue or q + enter to end")
 
 
 finally:
