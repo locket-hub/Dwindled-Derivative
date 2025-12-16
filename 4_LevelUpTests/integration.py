@@ -135,7 +135,7 @@ try:
       print("Distance sensor read %.1f cm." % (dist_sensor.distance * 100))
       time.sleep(1)
       decider = dist_sensor.distance * 100
-      if decider > 50:
+      if decider > 30:
           continuethis = False
 
     userInput = ""
