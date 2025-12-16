@@ -1,0 +1,11 @@
+VCC -> pin 2
+Trig -> pin 18
+Echo -> 560 ohm resistor -> pin 16
+Ground -> pin 8
+
+Receiver IO -> pin 13
+Receiver VCC -> pin 4
+Receiver Ground -> pin 11
+
+Sender VCC -> pin 4
+Sender Ground -> pin 11
