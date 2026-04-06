@@ -132,6 +132,12 @@ ___________________________
 try:
     continuethis = True
 
+	"""
+    dropbox_access = dropbox.Dropbox("PlaceholderToken")
+	with open("photo.jpg", "rb") as f:
+		dropbox_access.files_upload(f.read(), "Jpg/Path")
+    """
+	
     while continuethis:
       print("Distance sensor read %.1f cm." % (dist_sensor.distance * 100))
       time.sleep(1)
