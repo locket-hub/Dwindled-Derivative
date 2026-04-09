@@ -128,38 +128,30 @@ ___________________________
 
 """
 
-
 try:
-    continuethis = True
 
-	"""
-    dropbox_access = dropbox.Dropbox("PlaceholderToken")
-	with open("photo.jpg", "rb") as f:
-		dropbox_access.files_upload(f.read(), "Jpg/Path")
-    """
-	
     while continuethis:
-      print("Distance sensor read %.1f cm." % (dist_sensor.distance * 100))
-      time.sleep(1)
-      decider = dist_sensor.distance * 100
-      if decider > 30:
-          continuethis = False
+        print("Distance sensor read %.1f cm." % (dist_sensor.distance * 100))
+        time.sleep(1)
+        decider = dist_sensor.distance * 100
+        if decider > 30:
+            continuethis = False
 
-    userInput = ""
+        userInput = ""
 
     while userInput != "q":
-        if userInput == "":
-            print("Taking a picture")
-            img = take_picture()
+            if userInput == "":
+                print("Taking a picture")
+                img = take_picture()
 
-            if img is not None:
-                increment_fade(img)
-                userInput = input("Press enter to continue or q + enter to end")
-                cv2.destroyAllWindows()
+                if img is not None:
+                    increment_fade(img)
+                    userInput = input("Press enter to continue or q + enter to end")
+                    cv2.destroyAllWindows()
+                else:
+                    print("No image captured.")
             else:
-                print("No image captured.")
-        else:
-            print("Press enter to continue or q + enter to end")
+                print("Press enter to continue or q + enter to end")
 
 
 finally:
