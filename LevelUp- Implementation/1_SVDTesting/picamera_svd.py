@@ -59,7 +59,7 @@ def take_picture():
 
     # Inverted for portrait
     config = cam.create_still_configuration(
-        main={"size": (1080, 1920), "format": "RGB888"}
+        main={"size": (1920, 1080), "format": "RGB888"}
     )
     cam.configure(config)
     cam.start()
@@ -90,7 +90,10 @@ _______________________
 
 
 def increment_fade(img):
-    k_steps = [80, 40, 15, 5]
+    # 5 phases, 4 shifts matching number of pages
+
+    # Original started at 80
+    k_steps = [60, 35, 10]
 
     print("Pre-computing SVD steps...")
     frames = [svd_compress_frame(img, k) for k in k_steps]
