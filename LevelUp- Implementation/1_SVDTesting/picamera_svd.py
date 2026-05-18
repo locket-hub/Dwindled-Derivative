@@ -29,6 +29,7 @@ _______________________________________________________
 BEAM_PIN = 17
 
 GPIO.setmode(GPIO.BCM)
+# To avoid using a physical on bread board resistor
 GPIO.setup(BEAM_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def wait_for_beam_break_nonblocking():
@@ -98,7 +99,8 @@ def increment_fade(img):
     cv2.namedWindow("Fade Preview", cv2.WINDOW_NORMAL)
     cv2.setWindowProperty("Fade Preview", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
-    cv2.imshow("Fade Preview", img)
+    gray_full = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    cv2.imshow("Fade Preview", gray_full)
     cv2.waitKey(1)
     time.sleep(0.5)
 
@@ -110,7 +112,7 @@ def increment_fade(img):
 
     wait_for_beam_break_nonblocking()
     print("Going black")
-    cv2.imshow("Fade Preview", np.zeros_like(img))
+    cv2.imshow("Fade Preview", np.zeros_like(gray_full))
     cv2.waitKey(1)
 
 """
@@ -118,12 +120,20 @@ SVD Compression
 ___________________________
 """
 
-def svd_compress_frame(img, k):
-    """Compress a BGR image using rank-k SVD approximation per channel."""
-    compressed = np.stack([
-        _compress_channel(img[:, :, c], k) for c in range(3)
-    ], axis=2).astype(np.uint8)
-    return compressed
+def svd_compress_frame(img, k, scale=0.25):
+    h, w = img.shape[:2]
+    
+    # Convert to grayscale and downsample
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    small = cv2.resize(gray, (int(w * scale), int(h * scale)))
+    
+    # SVD on small grayscale image
+    U, S, Vt = np.linalg.svd(small.astype(float), full_matrices=False)
+    reconstructed = U[:, :k] @ np.diag(S[:k]) @ Vt[:k, :]
+    compressed_small = np.clip(reconstructed, 0, 255).astype(np.uint8)
+    
+    # Scale back up to original resolution
+    return cv2.resize(compressed_small, (w, h))
 
 def _compress_channel(channel, k):
     channel = channel.astype(float)
