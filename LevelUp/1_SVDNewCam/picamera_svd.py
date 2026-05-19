@@ -8,6 +8,34 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 """
+
+Setup for Passive Buzzer Idea
+
+Signal/PWM and Ground are required
+
+import RPi.GPIO as GPIO
+import time
+
+BUZZER = 17
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(BUZZER, GPIO.OUT)
+
+# Probs use a set of notes
+pwm = GPIO.PWM(BUZZER, 440)  # 440 Hz = A4 note
+pwm.start(50)                # 50% duty cycle
+time.sleep(1)
+pwm.stop()
+
+GPIO.cleanup()
+
+
+sudo apt install python3-rpi.gpio
+
+"""
+
+
+"""
 DIRECTORY
 _______________________________
 """
@@ -106,6 +134,27 @@ def increment_fade(img):
     cv2.imshow("Fade Preview", gray_full)
     cv2.waitKey(1)
     time.sleep(0.5)
+
+    """
+    Setup for decaying photo idea
+
+    k_steps = [80, 70, 60, 50, 40, 30, 20, 10]
+    wait_for_beam_break_nonblocking() # to start and show first image
+
+    
+    for k, frame in zip(k_steps, frames):
+        
+        start_time = 2
+        print(f"Showing rank k={k}")
+        cv2.imshow("Fade Preview", frame)
+        time.sleep(start_time)
+
+        if wait_for_beam_break_nonblocking == detected then...
+            start_time = start_time - 0.10
+
+        cv2.waitKey(1) #???? What is this?
+    
+    """
 
     for k, frame in zip(k_steps, frames):
         wait_for_beam_break_nonblocking()
