@@ -3,7 +3,7 @@
 A contemporary art project exploring photo manipulation, memory, and compression
 
 ## Purpose
-This repository contains code for the *Dwindled Derivative* project, a continuation of *The Dwindled Book*. It investigates algorithmic creativity through procedural art generation, in very minimalistic manner.
+This repository contains code for the *Dwindled Derivative* project, a continuation of *The Dwindled Book*. It investigates algorithmic creativity through procedural art generation, in very minimalistic manner(it's entirely TUI).
 
 ## Original Showcases
 - **ram_test_v2**: Implements a "fade to black" visual effect, symbolizing the inevitable end and decay of memory.
@@ -20,4 +20,4 @@ These programs explore memory as a computational process:
 - **Memory Allocation** (from Onboard Storage to RAM)
 - **Open-CV Compatible Camera** (ram_test_v2)
 - **Pi-Camera** capture for SVD
-- **Entirely TUI**
+- **Raspberry Pi GPIO Integration** use of break-beam sensors, motors, and buzzers
