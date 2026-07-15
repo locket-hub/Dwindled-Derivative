@@ -91,7 +91,7 @@ def fade_to_black(level, index):
     fade_path = os.path.join(output_images_tosubpath, fade_filename)     
     darker.save(fade_path)
 
-     try:
+    try:
         to_preview = Image.open(fade_path)
         time.sleep(0.5)
     except FileNotFoundError:
