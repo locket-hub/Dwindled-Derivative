@@ -5,6 +5,7 @@ i = 0
 
 
 # Takes 10 photos in succession in 720p, stores them as [i]pic.jpg
+# Uses command line tool fswebcam, which is installed on the RPi by default
 
 try:
     while i != 10:
@@ -15,5 +16,5 @@ try:
         
         time.sleep(0.2)
 
-except KeyboardInterupt:
+except KeyboardInterrupt:
     print('lol')
