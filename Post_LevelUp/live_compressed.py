@@ -8,7 +8,7 @@ from picamera2 import Picamera2
 """
 ***This will be for having live-feed before ultra-sensor is triggered,
     picture is taken, compressed, and shown on a timer***
-    
+
 import subprocess
 
 try:
@@ -72,6 +72,7 @@ def take_picture():
 
     frame = cam.capture_array()
     cam.stop()
+    cam.close()
 
     # picamera2 gives RGB, cv2 expects BGR — swap channels
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
