@@ -58,7 +58,7 @@ _______________________________________________
 
 def take_picture():
     # Chooses first camera, keep this mind
-    cam = cv2.VideoCapture(0)
+    cam = cv2.VideoCapture(0, cv2.CAP_V4L2)
 
     if not cam.isOpened():
         print("Camera not found")
