@@ -4,35 +4,6 @@ import os
 import RPi.GPIO as GPIO
 import numpy as np
 from picamera2 import Picamera2
-from PIL import Image
-import matplotlib.pyplot as plt
-
-"""
-
-Setup for Passive Buzzer Idea
-
-Signal/PWM and Ground are required
-
-import RPi.GPIO as GPIO
-import time
-
-BUZZER = 17
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(BUZZER, GPIO.OUT)
-
-# Probs use a set of notes
-pwm = GPIO.PWM(BUZZER, 440)  # 440 Hz = A4 note
-pwm.start(50)                # 50% duty cycle
-time.sleep(1)
-pwm.stop()
-
-GPIO.cleanup()
-
-
-sudo apt install python3-rpi.gpio
-
-"""
 
 
 """
@@ -47,6 +18,7 @@ images_tosubpath = os.path.join(current_directory, sub_folder)
 images_path = os.path.join(images_tosubpath, filename)
 
 os.makedirs(images_tosubpath, exist_ok=True)
+
 
 
 """
@@ -135,26 +107,6 @@ def increment_fade(img):
     cv2.waitKey(1)
     time.sleep(0.5)
 
-    """
-    Setup for decaying photo idea
-
-    k_steps = [80, 70, 60, 50, 40, 30, 20, 10]
-    wait_for_beam_break_nonblocking() # to start and show first image
-
-    
-    for k, frame in zip(k_steps, frames):
-        
-        start_time = 2
-        print(f"Showing rank k={k}")
-        cv2.imshow("Fade Preview", frame)
-        time.sleep(start_time)
-
-        if wait_for_beam_break_nonblocking == detected then...
-            start_time = start_time - 0.10
-
-        cv2.waitKey(1) #???? What is this?
-    
-    """
 
     for k, frame in zip(k_steps, frames):
         wait_for_beam_break_nonblocking()
@@ -187,11 +139,6 @@ def svd_compress_frame(img, k, scale=0.25):
     # Scale back up to original resolution
     return cv2.resize(compressed_small, (w, h))
 
-def _compress_channel(channel, k):
-    channel = channel.astype(float)
-    U, S, Vt = np.linalg.svd(channel, full_matrices=False)
-    reconstructed = U[:, :k] @ np.diag(S[:k]) @ Vt[:k, :]
-    return np.clip(reconstructed, 0, 255)
 
 
 """
@@ -218,5 +165,3 @@ finally:
     GPIO.cleanup()
     print("GPIO cleaned up.")
     cv2.destroyAllWindows()
-
-    # Needs to loop
