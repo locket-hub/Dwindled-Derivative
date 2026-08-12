@@ -2,7 +2,6 @@ import cv2
 import time
 import os
 import numpy as np
-from picamera2 import Picamera2
 
 
 """
@@ -58,24 +57,28 @@ _______________________________________________
 """
 
 def take_picture():
-    cam = Picamera2()
+    # Chooses first camera, keep this mind
+    cam = cv2.VideoCapture(0)
 
-    # Inverted for portrait
-    config = cam.create_still_configuration(
-        main={"size": (1920, 1080), "format": "RGB888"}
-    )
-    cam.configure(config)
-    cam.start()
+    if not cam.isOpened():
+        print("Camera not found")
+        return None
+
+    cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
+    cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 1920)
 
     print("Warmup")
-    time.sleep(2)
+    warmup = time.time() + 3
 
-    frame = cam.capture_array()
-    cam.stop()
-    cam.close()
+    while time.time() < warmup:
+        cam.read()
 
-    # picamera2 gives RGB, cv2 expects BGR — swap channels
-    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+    ret, frame = cam.read()
+    cam.release
+
+    if not ret or frame is None:
+        print("Camera capture error")
+        return None
 
     # Your rotation stays the same
     frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
