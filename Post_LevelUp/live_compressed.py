@@ -111,7 +111,7 @@ def increment_fade(img):
 
     gray_full = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cv2.imshow("Fade Preview", gray_full)
-    cv2.waitKey(1)
+    cv2.waitKey(100)
     time.sleep(0.5)
 
 
