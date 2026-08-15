@@ -156,5 +156,3 @@ try:
 finally:
     print("Mock GPIO cleaned up.")
     cv2.destroyAllWindows()
-
-proc = subprocess.Popen(["Post_LevelUp/live_feed.sh"])
