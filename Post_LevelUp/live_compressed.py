@@ -137,7 +137,7 @@ ___________________________
 
 """
 script_dtr = os.path.dirname(os.path.abspath(__file__))
-script_path = os.path.join(script_dtr, "Post_LevelUp", "live_feed.sh")
+script_path = os.path.join(script_dtr, "live_feed.sh")
 proc = subprocess.Popen([script_path])
 
 try:
