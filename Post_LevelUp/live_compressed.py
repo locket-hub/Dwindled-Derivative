@@ -136,7 +136,7 @@ PROGRAM START
 ___________________________
 
 """
-proc = subprocess.Popen(["live_feed.sh"])
+proc = subprocess.Popen(["Post_LevelUp/live_feed.sh"])
 
 try:
     userInput = input("Please click Enter: ")
@@ -155,4 +155,4 @@ finally:
     print("Mock GPIO cleaned up.")
     cv2.destroyAllWindows()
 
-proc = subprocess.Popen(["live_feed.sh"])
+proc = subprocess.Popen(["Post_LevelUp/live_feed.sh"])
