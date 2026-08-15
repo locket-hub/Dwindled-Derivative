@@ -74,7 +74,7 @@ def take_picture():
         cam.read()
 
     ret, frame = cam.read()
-    cam.release
+    cam.release()
 
     if not ret or frame is None:
         print("Camera capture error")
