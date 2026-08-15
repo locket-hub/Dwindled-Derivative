@@ -2,24 +2,7 @@ import cv2
 import time
 import os
 import numpy as np
-
-
-"""
-***This will be for having live-feed before ultra-sensor is triggered,
-    picture is taken, compressed, and shown on a timer***
-
 import subprocess
-
-try:
-    print("Launching camera preview... Press Ctrl+C in this terminal to exit.")
-    # Run the shell command. This blocks Python execution until the preview window is closed.
-    subprocess.run(["rpicam-hello", "-t", "0"], check=True)
-except KeyboardInterrupt:
-    print("\nPreview stopped by user.")
-except subprocess.CalledProcessError as e:
-    print(f"Error running rpicam-hello: {e}")
-"""
-
 
 
 """
@@ -153,7 +136,7 @@ PROGRAM START
 ___________________________
 
 """
-
+proc = subprocess.Popen(["live_feed.sh"])
 
 try:
     userInput = input("Please click Enter: ")
@@ -171,3 +154,5 @@ try:
 finally:
     print("Mock GPIO cleaned up.")
     cv2.destroyAllWindows()
+
+proc = subprocess.Popen(["live_feed.sh"])
