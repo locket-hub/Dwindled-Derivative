@@ -20,4 +20,5 @@ These programs explore memory as a computational process:
 - **Memory Allocation** (from Onboard Storage to RAM)
 - **Open-CV Compatible Camera** (ram_test_v2)
 - **Pi-Camera/OpenCV generic camera** capture for SVD
+- **Live-Feed from bash script** (live_feed & live_compressed)
 - **Raspberry Pi GPIO Integration** use of break-beam sensors, motors, and buzzers
